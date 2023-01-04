@@ -5,3 +5,6 @@ The calculator can be used fully with a mouse (except delete), but partially wit
 It is a very simple calculator
 
 Enjoy :)
+
+
+Copyright (c) 2023 DaddyPluM
