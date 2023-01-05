@@ -9,9 +9,9 @@ function love.load()
     love.graphics.setNewFont(60)    --Sets font size
     
     row = {     --This table contains about the buttons for each row
-        one = {1, 2, 3, "c","OFF"},
+        one = {7, 8, 9, "c","OFF"},
         two = {4, 5,6, "+","-"},
-        three = {7, 8, 9, "*","/"},
+        three = {1, 2, 3, "*","/"},
         four = {0, ".","^","="}
     }
     
