@@ -7,14 +7,14 @@ function love.load()
     display = "0"   --What the user will see (The Screen). It will contain all the calculations
     keypad = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "/", "."}
     love.graphics.setNewFont(60)    --Sets font size
-    
+
     row = {     --This table contains about the buttons for each row
         one = {7, 8, 9, "c","OFF"},
         two = {4, 5,6, "+","-"},
         three = {1, 2, 3, "*","/"},
         four = {0, ".","^","="}
     }
-    
+
     function click(v)   --Handles the keypad input
         if display == "0" then
             display = ""
@@ -36,8 +36,8 @@ function love.load()
     function off()  --Turns off the calculator
         love.event.quit()
     end
-    
-    function love.mousereleased(x, y, button, isTouch, presses)     --Whenevr the left mouse button is released, check if  it was ove a button and what button it was over
+
+    function love.mousereleased(x, y, button, isTouch, presses)     --Whenever the left mouse button is released, check if  it was ove a button and what button it was over
         if button == 1 then
             for buttonIndex in pairs(row.one) do
                 row.one[buttonIndex]:checkPressed(x, y)
@@ -99,7 +99,7 @@ function love.draw()
     --This row doesn't use the system because
     for i, v in ipairs(row.four) do
     row.four[i]:draw(((i+1)-.9)*170, row_start+390)
-    end 
+    end
 
     love.graphics.print(display,0,80)    --Displaying numbers onto the screen
 end
@@ -117,7 +117,7 @@ function love.keypressed(key)   --Check which key on the keyboard was pressed
     if key == "c" then
         display = "0"
     end
-    if key == "backspace" then 
+    if key == "backspace" then
         if display ~= "0"  and string.len(display) > 1 then     --Find the last character in the string "display" and removes it
                 display = display:sub(1, -2)
         else
@@ -136,3 +136,4 @@ function love.keypressed(key)   --Check which key on the keyboard was pressed
     end
     display = tostring(display)     --The system set up for deleting doesn't work on numbers, only on strings.
 end
+
