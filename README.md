@@ -6,6 +6,6 @@ The calculator can be used fully with a mouse (except delete), but partially wit
 It is a very simple calculator
 ##### Now With Keypad Support
 
-My code commenting skills aren't hat good
+My code commenting skills aren't that good
 
 Enjoy :)
