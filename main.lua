@@ -119,7 +119,7 @@ function love.keypressed(key)   --Checks which key on the keyboard was pressed
         clear()
     elseif key == "x" then
         display = display.."*"
-    elseif key == "backspace" then      --Delete
+    elseif key == "backspace" then      --Deletes the last typed number
         if display ~= "0"  and string.len(display) > 1 then     --Finds the last character in the string "display" and removes it
                 display = display:sub(1, -2)
         else
