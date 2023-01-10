@@ -18,15 +18,12 @@ function love.load()
     function click(v)   --Handles the keypad input
         if v == "x" then    --Computers don't use "x" for multiplication
             v = "*"
-        end
-        if v == "÷" then    --Computers don't use "÷" for multiplication
+        elseif v == "÷" then    --Computers don't use "÷" for multiplication
             v = "/"
-        end
-        if v == "C" then
+        elseif v == "C" then
             clear()
             v = "0"
-        end
-        if v == "=" then
+        elseif v == "=" then
             equals()
             v = ""
         end
@@ -42,7 +39,7 @@ function love.load()
         display = "0"
     end
 
-    function equals()   --Solve equation on screen
+    function equals()   --Solves the equation on screen
         local result = load("return "..display)()   --This is how the calculator calculates. I can't explain it properly. Load turns a string (display) into code that is then executed. E.g. if display = "3+3", load will turn it into code and execute 3+3
         display = result
     end
@@ -51,7 +48,7 @@ function love.load()
         love.event.quit()
     end
 
-    function love.mousereleased(x, y, button, isTouch, presses)     --Whenever the left mouse button is released, check if  it was ove a button and what button it was over
+    function love.mousereleased(x, y, button, isTouch, presses)     --Whenever the left mouse button is released, check if it was over a button and what button it was over
         if button == 1 then
             for buttonIndex in pairs(row.one) do
                 row.one[buttonIndex]:checkPressed(x, y)
@@ -73,7 +70,7 @@ function love.load()
         if i ~= 5 then      --We need this for buttons that don't display onto the screen e.g OFF
             row.one[i] = button(tostring(v), click, v )
         else
-            row.one[5] = button("OFF", off)     --Special buttons
+            row.one[5] = button("OFF", off)     --Special button
         end
     end
     for i, v in ipairs(row.two) do
@@ -96,7 +93,7 @@ function love.draw()
         if i ~= 5 then  --Checks if the button it is about to draw is not the OFF button
             row.one[i]:draw((i-.9)*170, row_start)
         else    --If it is the OFF button
-        row.one[5]:draw((5-.9)*170, row_start,20,nil,.5,0,0,"fill")     --Because the OFF buttons is a different colour, we need to pass in some extra parameters
+            row.one[5]:draw((5-.9)*170, row_start,20,nil,.5,0,0,"fill")     --Because the OFF buttons is a different colour, we need to pass in some extra parameters
         end
     end
     for i, v in ipairs(row.two) do
@@ -116,17 +113,13 @@ end
 function love.keypressed(key)   --Checks which key on the keyboard was pressed
     if key == "escape" then
         off()
-    end
-    if key == "return" or key == "="  or key == "kpenter" then
+    elseif key == "return" or key == "="  or key == "kpenter" then
         equals()
-    end
-    if key == "c" then
+    elseif key == "c" then
         clear()
-    end
-    if key == "x" then
+    elseif key == "x" then
         display = display.."*"
-    end
-    if key == "backspace" then
+    elseif key == "backspace" then      --Delete
         if display ~= "0"  and string.len(display) > 1 then     --Finds the last character in the string "display" and removes it
                 display = display:sub(1, -2)
         else
@@ -145,13 +138,13 @@ function love.keypressed(key)   --Checks which key on the keyboard was pressed
     end
     for i,v in pairs(pc_keypad) do      --Links the calculator's keyapd to the keyboard's keypad
         if key == v then
-            key = string.gsub(v, "kp", "")      --If the 9 key on the keyboard's keypad was pressed, it will detect it as "kp9" was pressed. This line of code removes the first two characters, kp, from the string. Remove this line and see what I mean.
-            if display == "0" then
-                    display = ""
+                key = string.gsub(v, "kp", "")      --If the 9 key on the keyboard's keypad was pressed, it will detect it as "kp9" was pressed. This line of code removes the first two characters, kp, from the string. Remove this line and you will see what I mean.
+                if display == "0" then
+                        display = ""
+                        display = display..key
+                else
                     display = display..key
-            else
-                display = display..key
-            end
+                end
         end
     end
 end
