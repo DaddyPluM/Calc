@@ -1,7 +1,7 @@
 require ("button")
 
 function love.load()
-    win_width, win_height = love.window.getDesktopDimensions()
+    win_width, win_height = love.window.getMode()
     row_start = 250     --The point where the keypad starts
     button_size = 120
     display = "0"   --What the user will see (The Screen). It will contain all the calculations
@@ -87,7 +87,7 @@ end
 function love.draw()
     --Drawing the screen
     love.graphics.setColor(.1,.1,.3)
-    love.graphics.rectangle("fill",0,0,win_width-10,240)
+    love.graphics.rectangle("fill",0,0,win_width,240)
     --The same system we used for loading the buttons but now used for drawing them instead
     for i, v in ipairs(row.one) do
         if i ~= 5 then  --Checks if the button it is about to draw is not the OFF button
