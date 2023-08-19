@@ -40,8 +40,12 @@ function love.load()
     end
 
     function equals()   --Solves the equation on screen
-        local result = load("return "..display)()   --This is how the calculator calculates. I can't explain it properly. Load turns a string (display) into code that is then executed. E.g. if display = "3+3", load will turn it into code and execute 3+3
-        display = result
+        if load("return "..display) == nil then
+            display = "Error"
+        else
+            local result = load("return "..display)()   --This is how the calculator calculates. I can't explain it properly. Load turns a string (display) into code that is then executed. E.g. if display = "3+3", load will turn it into code and execute 3+3
+            display = tostring(result)
+        end
     end
 
     function off()  --Turns off the calculator
@@ -113,6 +117,17 @@ end
 function love.keypressed(key)   --Checks which key on the keyboard was pressed
     if key == "escape" then
         off()
+    elseif love.keyboard.isDown "lshift" then
+        if display == "0" then
+            display = ""
+        end
+        if key == "=" then 
+            display = display.."+"
+        elseif key == "8" then
+            display = display.."*"
+        elseif key == "6" then
+            display = display.."^"
+        end
     elseif key == "return" or key == "="  or key == "kpenter" then
         equals()
     elseif key == "c" then
@@ -127,14 +142,16 @@ function love.keypressed(key)   --Checks which key on the keyboard was pressed
         end
     end
     for k, v in pairs(calc_keypad) do   --Links the calculator's keypad to the keyboard
-        if key == tostring(v) then
-            if display == "0" then
+            if love.keyboard.isDown "lshift" then
+            
+            elseif key == tostring(v) then
+                if display == "0" then
                     display = ""
                     display = display..v
-            else
-                display = display..v
+                else
+                    display = display..v
+                end
             end
-        end
     end
     for i,v in pairs(pc_keypad) do      --Links the calculator's keyapd to the keyboard's keypad
         if key == v then
