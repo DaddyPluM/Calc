@@ -1,7 +1,7 @@
 function button(text, func, param, width, height)
     return{
-        width = width or 160,
-        height = height or 120,
+        width = width or 80,
+        height = height or 60,
         func = func or function ()
             print("THis button has no function attached")
         end,
@@ -35,13 +35,13 @@ function button(text, func, param, width, height)
             if textX then
                 self.textX = textX + self.buttonX
             else
-                self.textX = self. buttonX + 55
+                self.textX = self. buttonX + 55/2
             end
 
             if textY then
                 self.textY = textY + self.buttonY
             else
-                self.textY = self. buttonY + 30
+                self.textY = self. buttonY + 15
             end
 
             love.graphics.setColor(r,g,b)
