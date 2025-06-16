@@ -7,6 +7,12 @@ function love.load()
         height = 2,
         x = 0,
         offset = 0,
+        timer = 0,
+        visible = true,
+        reset = function(self)
+            self.timer = 0
+            self.visible = true
+        end
     }
     win_width, win_height = love.window.getMode()
     row_start = 125    --The point where the keypad starts
@@ -100,8 +106,17 @@ function love.load()
     end
 end
 
-function love.update()
+function love.update(dt)
     cursor.x = ((#display - 1) + cursor.offset) * (cursor.width - 1) * 1.05     --Updates the position of the cursor
+    cursor.timer = cursor.timer + dt
+    if cursor.timer >= 1.2 then
+        cursor.timer = 0
+        if cursor.visible then
+            cursor.visible = false
+        else
+            cursor.visible = true
+        end
+    end
 end
 
 function love.draw()
@@ -129,11 +144,14 @@ function love.draw()
     love.graphics.print(display,0,70)    --Displays numbers onto the screen
     
     love.graphics.setColor(.0,.8,.4, .7)
-    love.graphics.rectangle("fill",cursor.x,112,cursor.width,cursor.height)     -- Draws the cursor onto the screen
+    if cursor.visible == true then
+        love.graphics.rectangle("fill",cursor.x,112,cursor.width,cursor.height)     -- Draws the cursor onto the screen
+    end
 end
 
 
 function love.keypressed(key)   --Checks which key on the keyboard was pressed
+    cursor:reset()
     if key == "escape" then
         off()
     elseif (love.keyboard.isDown "lshift") or (love.keyboard.isDown "rshift")then     --If Left Shift is being held down
